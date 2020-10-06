@@ -7,44 +7,44 @@ tee = [3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48]
 fou = [4, 45, 39, 6, 48, 16, 37, 27, 28, 3, 47, 5, 20, 51, 49]
 
 
-def selection_sort_basic(li):
-    for i in range(len(li)):
+def selection_sort_basic(arr):
+    for i in range(len(arr)):
         left_i = i
-        for j in range(i + 1, len(li)):
-            if li[left_i] > li[j]:
+        for j in range(i + 1, len(arr)):
+            if arr[left_i] > arr[j]:
                 left_i = j
-        li[i], li[left_i] = li[left_i], li[i]
+        arr[i], arr[left_i] = arr[left_i], arr[i]
 
 
-def selection_sort(li):
-    for i in range(len(li)):
+def selection_sort(arr):
+    for i in range(len(arr)):
         # argmin returns index of min ele in array in some axis
-        left_i = i + np.argmin(li[i:])
-        li[i], li[left_i] = li[left_i], li[i]
+        left_i = i + np.argmin(arr[i:])
+        arr[i], arr[left_i] = arr[left_i], arr[i]
 
 
-def bubble_sort(li):
-    for i in range(len(li)):
-        for j in range(len(li) - 1):
-            if li[j] > li[j + 1]:
-                li[j], li[j + 1] = li[j + 1], li[j]
+def bubble_sort(arr):
+    for i in range(len(arr)):
+        for j in range(len(arr) - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
 
-def insert_sort(li):
-    for i in range(1, len(li)):
-        hold = li[i]
+def insert_sort(arr):
+    for i in range(1, len(arr)):
+        hold = arr[i]
         right = i - 1
-        while right >= 0 and hold < li[right]:
-            li[right + 1] = li[right]
+        while right >= 0 and hold < arr[right]:
+            arr[right + 1] = arr[right]
             right -= 1
-        li[right + 1] = hold
+        arr[right + 1] = hold
 
 
-def merge_sort(li):
-    if len(li) > 1:
-        mid = len(li) // 2
-        L = li[:mid]
-        R = li[mid:]
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
 
         merge_sort(L)
         merge_sort(R)
@@ -56,11 +56,11 @@ def merge_sort(li):
             # If our left_copy has the smaller element, put it in the sorted
             # part and then move forward in left_copy (by increasing the pointer)
             if L[i] < R[j]:
-                li[k] = L[i]
+                arr[k] = L[i]
                 i += 1
             # Opposite from above
             else:
-                li[k] = R[j]
+                arr[k] = R[j]
                 j += 1
             # Regardless of where we got our element from
             # move forward in the sorted part
@@ -70,12 +70,12 @@ def merge_sort(li):
         # We ran out of elements either in left_copy or right_copy
         # so we will go through the remaining elements and add them
         while i < len(L):
-            li[k] = L[i]
+            arr[k] = L[i]
             i += 1
             k += 1
 
         while j < len(R):
-            li[k] = R[j]
+            arr[k] = R[j]
             j += 1
             k += 1
 
@@ -100,13 +100,13 @@ def partition(arr, start, end):
     return high
 
 
-def quick_sort_first(li, start, end):
+def quick_sort_first(arr, start, end):
     if start >= end:
         return
 
-    p = partition(li, start, end)
-    quick_sort_first(li, start, p - 1)
-    quick_sort_first(li, p + 1, end)
+    p = partition(arr, start, end)
+    quick_sort_first(arr, start, p - 1)
+    quick_sort_first(arr, p + 1, end)
 
 
 def heap_sort(array):
@@ -125,11 +125,9 @@ def heap_sort(array):
 
     return ordered
 
-
-
 ###
 
-print('Sort: \n')
+# print('Sort: \n')
 # quick_sort_first(tee, 0, len(fou) - 1)
 # print(fou)
-print(heap_sort(tee))
+# print(heap_sort(tee))
