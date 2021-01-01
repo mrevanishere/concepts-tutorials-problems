@@ -85,6 +85,28 @@ def interpolation_search(arr, item):
     pass
 
 
+def breadth_first_search(graph, node):
+    visited = []
+    queue = []
+    visited.append(node)
+    queue.append(node)
+    while queue:
+        s = queue.pop(0)
+        print(s, end=" ")
+        for neighbor in graph[s]:
+            if neighbor not in visited:
+                visited.append(neighbor)
+                queue.append(neighbor)
+
+
+def depth_first_search_recursive(visited, graph, node):
+    if node not in visited:
+        print (node, end=" ")
+        visited.add(node)
+        for neighbor in graph[node]:
+            depth_first_search_recursive(visited, graph, neighbor)
+
+
 ###
 
 print("Sort")
@@ -92,3 +114,21 @@ merge_sort(tee)
 print(tee)
 # print(binary_search_recursive(tee, 36, 0, len(tee) - 1))
 print(exponential_search(tee, 36))
+
+graph_one = {
+    'A': ['B', 'S'],
+    'B': [],
+    'C': ['D', 'E', 'F', 'S'],
+    'D': ['C'],
+    'E': ['C', 'H'],
+    'F': ['C', 'G'],
+    'G': ['H', 'S'],
+    'H': ['E', 'G'],
+    'S': ['A', 'C', 'G'],
+}
+print('BFS: ', end=" ")
+breadth_first_search(graph_one, 'H')
+visited_one = set()
+print()
+print('DFSR: ', end=" ")
+depth_first_search_recursive(visited_one, graph_one, 'H')

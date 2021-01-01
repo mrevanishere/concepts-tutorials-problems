@@ -1,0 +1,1 @@
+# trie is a tree for chars, word validation
