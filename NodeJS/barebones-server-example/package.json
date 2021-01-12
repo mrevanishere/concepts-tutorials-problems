@@ -1,0 +1,19 @@
+{
+  "name": "jstutorialnode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrevanishere/jstutorialnode.git"
+  },
+  "author": "mrevanishere",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrevanishere/jstutorialnode/issues"
+  },
+  "homepage": "https://github.com/mrevanishere/jstutorialnode#readme"
+}
