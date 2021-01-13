@@ -1,5 +1,5 @@
 # Concepts
-Snippets of code
+Snippets of code and coverage of DSA concepts.
 
 # Tutorials
 Edited code from various coding tutorials / quick starts.
