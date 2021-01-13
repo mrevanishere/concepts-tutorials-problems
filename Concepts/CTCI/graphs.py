@@ -2,6 +2,7 @@
 Trees
 """
 
+
 # Binary Tree
 class BTNode:
     def __init__(self, data):
@@ -31,13 +32,15 @@ class BTNode:
                     self.right.insert(data)
         else:
             self.data = data
+
+
 # print node
 def visit(node):
     print(node)
 
 
 # In order traversal Binary Tree
-def in_order_traversal(node:BTNode):
+def in_order_traversal(node: BTNode):
     """
     visit left branch, then current node, then right branch
     :param node:
@@ -61,6 +64,7 @@ def pre_order_traversal(node: BTNode):
         pre_order_traversal(node.left)
         pre_order_traversal(node.right)
 
+
 # Post order BT
 def post_order_traversal(node: BTNode):
     """
@@ -68,17 +72,17 @@ def post_order_traversal(node: BTNode):
     :param node:
     :return:
     """
-    if(node != None):
+    if (node != None):
         post_order_traversal(node.left)
         post_order_traversal(node.right)
         visit(node)
+
 
 # define a binary tree
 root = BTNode(12)
 root.insert(6)
 root.insert(14)
 root.insert(3)
-
 
 in_order_traversal(root)
 pre_order_traversal(root)
@@ -88,9 +92,12 @@ post_order_traversal(root)
 Graphs
 """
 import queue
+
+
 class Graph:
     def __init__(self):
         self.nodes = []
+
 
 class Node:
     def __init__(self, data):
@@ -115,6 +122,7 @@ def dfs_reccursive(root: Node):
         if (n.visited == False):
             dfs_reccursive(root)
 
+
 def bfs(root: Node):
     """
     use queue
@@ -132,4 +140,43 @@ def bfs(root: Node):
             q.put(n)
 
 
+"""
+Problems
+"""
 
+
+
+# 4.1 Route between Nodes Attempt 1 and 2 (dfs reccursive, bfs)
+def dfs1(curr, target):
+    if root is None:
+        return False
+    visit(root)
+    root.visited = True
+    if curr is target:
+        return True
+    for n in root.adj:
+        if n.visited is False:
+            return dfs1(curr, target)
+
+def bfs1(curr, target):
+    q = queue.Queue()
+    curr.visited = True
+    q.put(root)
+    while not q.empty():
+        r = q.get()
+        visit(r)
+        if r is target:
+            return True
+        for n in r.adj:
+            n.visited = True
+            q.put(n)
+    return False
+
+def route_exists(node1, node2):
+    """
+    dfs for trying to find if a route between two nodes exists.
+    Start at node1, during dfs, if curr_node is node2 return true.
+    If dfs finishes without finding node2, then return false.
+    """
+    # return dfs1(node1, node2)
+    return bfs1(node1, node2)
