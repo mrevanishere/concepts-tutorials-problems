@@ -1,7 +1,14 @@
 # CTCI 17.5 Letters and Numbers
+# see 525. Contiguous Array
 """
 Given an array filled with letters and numbers find the longest subarray with
 an equal number of letters and numbers
+
+Ideas after reading 525:
+convert arr to binary array (0 for num, 1 for letter)
+and then brute force for O(n^2)
+-> after looking at GFG this is how they do it.
+
 """
 
 anstr = "d2hdj8zo9toxy002e401"  # 9 num, 11 letters
