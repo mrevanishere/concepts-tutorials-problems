@@ -1,0 +1,40 @@
+// Two pointer + 1
+class Solution {
+public:
+    vector<int> twoSum(vector<int> nums, int target) {
+        int n = nums.size();
+        vector<int> sol;
+        for (int i = 0; i < n; ++i) {
+            for (int j = i+1; j < n; ++j) {
+                if (nums[i] + nums[j] == target) {
+                    sol.push_back(i);
+                    sol.push_back(j);
+                    return sol;
+                }
+            }
+        }
+        return sol;
+    }
+};
+// naive solution
+// this problem seems like the one we did earlier
+// seems like 1512
+// looking for pairs and return when pair found
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> sol;
+        for (int i : nums) {
+            for (int j : nums) {
+                if (nums[i] + nums[j] == target) {
+                    sol.push_back(i);
+                    sol.push_back(j);
+                    return sol;
+                }   
+            }
+            
+        }
+        return sol;
+    }
+        
+};
