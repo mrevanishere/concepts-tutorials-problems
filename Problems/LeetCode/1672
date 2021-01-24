@@ -1,0 +1,13 @@
+// 1672. Richest Customer Wealth
+// for sum in accounts[i] track max;
+class Solution {
+public:
+    int maximumWealth(vector<vector<int>>& accounts) {
+        int max_wealth = accumulate(accounts[0].begin(), accounts[0].end(), 0);
+        int m = accounts.size();
+        for (int i = 1; i < m; ++i) {
+            max_wealth = max(max_wealth, accumulate(accounts[i].begin(), accounts[i].end(), 0));
+        }
+        return max_wealth;
+    }
+};
