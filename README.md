@@ -5,5 +5,5 @@ Snippets of code and coverage of DSA concepts.
 Edited code from various coding tutorials / quick starts.
 Used for my own reference of learning the basics.
 
-# Problems
-My solutions / explanations to LeetCode, Hackerrank, Kattis, Kaggle, etc.
+# ProblemsS
+olutions / explanations to LeetCode, Hackerrank, Kattis, Kaggle, etc.
