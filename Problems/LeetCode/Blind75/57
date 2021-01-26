@@ -1,0 +1,39 @@
+// 57. Insert Interval
+
+// First thoughts:
+// 0. if empty() return newInterval;
+// 1. Replace old interval with new boundaries 
+// 2. Merge intervals 
+
+// Solutions I've read: 
+// 1. push all intervals left of new
+// 2. merge all intervals intersect with new
+// 3. push all intervals right of new
+
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> sol;
+        int n = intervals.size();
+        int i = 0;
+        // Left (no intersection)
+        while (i < n && intervals[i][1] < newInterval[0]) {
+            sol.push_back(intervals[i]);
+            ++i;
+        }
+        // Mid and Merge
+        // loop through all intersecting intervals, find minimum and maximum to put as newInterval;
+        while (i < n && intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = min(newInterval[0], intervals[i][0]);
+            newInterval[1] = max(newInterval[1], intervals[i][1]);
+            ++i;
+        }
+        sol.push_back(newInterval);
+        // Right (no intersection)
+        while (i < n && intervals[i][0] > newInterval[1]) {
+            sol.push_back(intervals[i]);
+            ++i;
+        }
+        return sol;
+    }
+};

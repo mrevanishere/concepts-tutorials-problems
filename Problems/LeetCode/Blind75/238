@@ -1,0 +1,36 @@
+// 238. Product of Array Except Self
+// return output[] where
+// output[i] == product(nums[!i])
+/* First attempt (TLE)
+
+vector<int> productExceptSelf(vector<int>& nums) {
+        // Naive: go through each product
+        vector<int> prod(nums.size());
+        int L,R = 1;
+        for (int i = 0; i < nums.size(); ++i) {
+            prod[i] = accumulate(nums.begin(), nums.begin()+i, 1, std::multiplies<>{});
+            prod[i] *= accumulate(nums.begin()+i+1, nums.end(), 1, std::multiplies<>{});
+            // std::cout << prod[i];
+        }
+        return prod;
+    }
+
+*/
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        int from_begin = 1;
+        int from_end = 1;
+        vector<int> res(n, 1);
+        for (int i = 0; i < n; ++i) {
+            res[i] *= from_begin; // multiply value by left product
+            from_begin *= nums[i]; // multiply product by current value
+        }
+        for (int i = n-1; i >= 0; --i) {
+            res[i] *= from_end; // multiply value by right product
+            from_end *= nums[i]; // multiply produt by current value
+        }
+        return res;
+    }
+};

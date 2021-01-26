@@ -1,0 +1,36 @@
+// 15. 3sum
+// recursion / DP for all combinations of nums.size() choose 3 == 0
+// or two pointer 
+    // where sum > 0; r- else l++
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        // sort to reveal duplicates
+        int n = nums.size();
+        vector<vector<int>> triples;
+        
+        if (n < 3) return triples;
+        
+        for (int i = 0; i < n-2; ++i) {
+            int left = i + 1;
+            int right = n - 1;
+            // skip dupes
+            if (i && nums[i]==nums[i-1]) continue;
+            while (left < right) {
+                int target = nums[left] + nums[right] + nums[i];
+                if (target == 0) {
+                    triples.emplace_back(vector<int>{nums[i], nums[left], nums[right]});
+                    // Bring pointers to the last repeated number
+                    while (right-1 >= left && nums[right-1]==nums[right]) --right;
+                    while(left+1 < right && nums[left+1]==nums[left]) ++left;
+                    ++left;
+                    --right;
+                }
+                else if (target > 0) --right; // reduce 
+                else ++left;
+            } 
+        }
+        return triples;
+    }
+};

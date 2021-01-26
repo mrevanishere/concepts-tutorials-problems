@@ -1,0 +1,16 @@
+// 1732. Find the Highest Altitude
+// running sum and check for max
+class Solution {
+public:
+    int largestAltitude(vector<int>& gain) {
+        int n = gain.size();
+        int asum = 0; 
+        int high = 0;
+        for (int i = 0; i < n; ++i) {
+            asum += gain[i];
+            high = max(high, asum);
+            // cout << asum << " " << high << "\n";
+        }
+        return high;
+    }
+};

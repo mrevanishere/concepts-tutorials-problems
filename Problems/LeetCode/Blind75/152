@@ -1,0 +1,33 @@
+// 152. Maximum Product Subarray
+// Cases:
+// Zero in array
+    // P +-
+// Zero not in array
+    // P +-
+
+// Conclusion: 
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        // use variant of kadane's algorithm
+        int n = nums.size();
+        int best_prod = nums[0];
+        int left = 0;
+        int right = 0;
+        for (int i = 0; i < n; ++i) {
+            if (left) {
+                left *= nums[i];
+            } else {
+                left = nums[i];
+            }
+            if (right) {
+                right *= nums[n-1-i];
+            } else {
+                right = nums[n-1-i];
+            }
+            best_prod = max(best_prod, max(left, right));
+            
+        }
+        return best_prod;
+    }
+};

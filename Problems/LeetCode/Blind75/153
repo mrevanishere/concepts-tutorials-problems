@@ -1,0 +1,31 @@
+// 153. Find Minimum in Rotated Sorted Array
+// Notes:
+// array is sorted, rotated 1-n times.
+// Rotation: shift elements right and add end to begining
+// Naive: just find min() regularly O(n)
+/*
+int res = nums[0];
+int n = nums.size();
+for (int i = 1; i < n; ++i) {
+    res = min(res, nums[i]);
+}
+return res;
+*/
+// Binary Search
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int low = 0;
+        int high = nums.size() - 1;
+        while (low < high) {
+            int mid = (high-low) / 2 + low;
+            if (nums[mid] > nums[high]) {
+                low = mid + 1;
+            }
+            else {
+                high = mid;
+            }
+        }
+        return nums[low];
+    }
+};

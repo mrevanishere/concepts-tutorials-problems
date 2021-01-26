@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        // Using kadane's algorithm (DP)
+        // https://en.wikipedia.org/wiki/Maximum_subarray_problem
+        // Find the largest sum of any contiguous subarray
+        int best_sum = nums[0];
+        int curr_sum = nums[0];
+        int n = nums.size();
+        for (int i = 1; i < n; ++i) {
+            curr_sum = max(nums[i], curr_sum + nums[i]);
+            best_sum = max(best_sum, curr_sum);
+        }
+        return best_sum;
+    }
+};
