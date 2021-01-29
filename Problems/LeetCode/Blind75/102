@@ -1,0 +1,26 @@
+// 102. Binary Tree Level Order Traversal
+// BFS left to right solution based off of previous answers
+// based off of 104
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if (root == nullptr) return res;        
+        queue<TreeNode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            int n = q.size();
+            vector<int> layer;
+            for (int i = 0; i < n; ++i) {
+                TreeNode* p = q.front();
+                q.pop();
+                layer.push_back(p->val);
+                if (p->left != nullptr) q.push(p->left);
+                if (p->right != nullptr) q.push(p->right);
+            }
+            res.push_back(layer);
+            
+        }
+        return res;
+    }
+};

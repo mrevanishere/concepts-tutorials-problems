@@ -1,0 +1,35 @@
+// 48. Rotate Image
+// rotate matrix elements by -pi/2
+
+// 3 std::swap() if moving in gruops of 4 (or 1)
+// other appraoch:
+// Transpose + Reflect over y is == -pi/2 rotation
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        // only need to iterate through half + odd (if odd)
+        for (int i = 0; i < (n/2 + n%2); ++i) {
+            // only need to iterate through half
+            for (int j = 0; j < n/2; ++j) {
+                // swap with i,jth element to only make 3 swaps
+                swap(matrix[i][j], matrix[j][n-1-i]);
+                swap(matrix[i][j], matrix[n-1-i][n-1-j]);
+                swap(matrix[i][j], matrix[n-1-j][i]);
+            }
+        }
+    }
+};
+
+// another solution: clockwise rotation by vertical then y=-x reflection
+/*
+void rotate(vector<vector<int> > &matrix) {
+    // vertical reflection
+    reverse(matrix.begin(), matrix.end());
+    // y=-x reflection
+    for (int i = 0; i < matrix.size(); ++i) {
+        for (int j = i + 1; j < matrix[i].size(); ++j)
+            swap(matrix[i][j], matrix[j][i]);
+    }
+}
+*/

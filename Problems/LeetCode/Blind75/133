@@ -1,0 +1,31 @@
+// BFS using unordered map and queue
+class Solution {
+public:
+    Node* cloneGraph(Node* node) {
+        // if empty
+        if (!node) return nullptr;
+        // Node* : Node* map
+        unordered_map<Node*, Node*> copies;
+        // add first node to map
+        Node * copy = new Node(node->val);
+        copies[node] = copy;
+        // first node to q
+        queue<Node*> q;
+        q.push(node);
+        while(!q.empty()) {
+            Node* p = q.front();
+            q.pop();
+            // for each adjacent node
+            for (Node* neighbor: p->neighbors) {
+                // if neighbor not in copies
+                if (copies.find(neighbor) == copies.end()) {
+                    copies[neighbor] = new Node(neighbor->val);
+                    q.push(neighbor);
+                }
+                // add the neighbor to list of neighbors for p
+                copies[p]->neighbors.push_back(copies[neighbor]);
+            }
+        }
+        return copy;
+    }
+};

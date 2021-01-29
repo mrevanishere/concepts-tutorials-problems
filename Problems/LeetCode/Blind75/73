@@ -1,0 +1,50 @@
+// 73. Set Matrix Zeroes
+
+// Could easily record positions with another data structure, but there is a constant space solution
+// Problem with current approach: for higher i, it could result in false 0 being identified (being set to 0 after finding a 0)
+// Could set to another integer to hold it's place, but since the range is all of an integer there is no safe value to set
+// Mark each first row/col with a 0 for the next loop to change it
+
+// caved in and looked at the solution
+// i was almost there i just didn't think to use an is_col flag
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        int n = matrix[0].size();
+        bool fcol_is_zero = false;
+        
+        // mark columns and rows that need to be changed
+        for (int i = 0; i < m; ++i) {
+            // for first row keep a flag instead of setting it
+            if (matrix[i][0] ==0) is_col = true;
+            for (int j = 1; j < n; ++j) {
+                // if element is 0, set first ele of corresponding row/col to 0
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+        // set all marked rows and cols to zero, except first
+        for (int i = 1; i < m; ++i) {
+            for (int j = 1; j < n; ++j) {
+                if (!matrix[i][0] || !matrix[0][j]) {
+                    matrix [i][j] = 0;
+                }
+            }
+        }
+        // see if first row needs to be set to zero
+        if (matrix[0][0] == 0) {
+            for (int j = 0; j < n; ++j) {
+                matrix[0][j] = 0;
+            }
+        }
+        // see if first col needs to be set to zero
+        if (is_col) {
+            for (int i = 0; i < m; ++i) {
+                matrix[i][0] = 0;
+            }
+        }
+    }
+};

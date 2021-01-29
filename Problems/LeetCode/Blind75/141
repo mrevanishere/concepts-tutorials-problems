@@ -1,0 +1,26 @@
+// 141. Linked List Cycle
+// Two pointer, slow and fast method (if they overlap then there is a cycle)
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        // if empty then return false because a cycle is impossible
+        if (head == nullptr) return false;
+        // assign the slow and fast pointers
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        // while they don't overlap
+        while (slow != fast) {
+            // slow pointer moves by one
+            slow = slow->next;
+            // if fast pointer is null then return false (reached end without cycle)
+            if (fast == nullptr || fast->next == nullptr) {
+                fast = nullptr;
+                return false;
+            }
+            // fast pointer moves by two
+            fast = fast->next->next;
+        }
+        // if went through entire list then true (since fast pointer did not reach the end before slow ptr)
+        return true;
+    }
+};

@@ -1,0 +1,27 @@
+// 206. Reverse Linked List
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+// need three pointers: prev, curr, next
+//  
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* p = nullptr; // previous 
+        ListNode* q = head; // current
+        while (q != nullptr) {
+            ListNode* next = q->next; // next = currentt.next
+            q->next = p; // current.next = previous
+            p = q; // previous = current
+            q = next; // current = next
+        }
+        return p; // return last in list
+    }
+};
