@@ -1,0 +1,125 @@
+// 55. Jump Game
+// DP / Greedy
+// refering to the 55 solution article
+
+// Dynamic programming problems can be solved in 4 steps:
+// 1. Start with recursive backtracking solution
+// 2. optimize with memorization table (top-down dp)
+// 3. Remove recursion (bottom-up dp)
+// 4. Final optimizations
+
+
+// Backtracking (TLE) Time: O(2^n), Space: O(n) (stack)
+/*
+class Solution {
+public:
+    bool can_jump_from_pos(int pos, vector<int>& nums) {
+        // if position is at last index return true
+        if (pos == nums.size()-1) return true;
+        // furthest can jump from current pos
+        // must cast num.size() to int since .size() returns size_t
+        int furthest = min(pos + nums[pos], (int) (nums.size()-1));
+        // check each jump path
+        // could iterate backwards or forwards (but backwards will be faster in few cases with same worst case)
+        for (int next_pos = furthest; next_pos > pos; --next_pos) {
+            if (can_jump_from_pos(next_pos, nums)) return true;
+        }
+        // if all paths false
+        return false;
+    }
+    bool canJump(vector<int>& nums) {
+        // First call at 0th index
+        return can_jump_from_pos(0, nums);
+    }
+};
+*/
+
+// Top-Down DP (TLE), Time: O(n^2), Space: O(2n) = O(n) recursion + memorization
+/*
+class Solution {
+public:
+    // 0 is unknown, -1 is bad, 1 is good
+    vector<int> mem;
+    
+    bool can_jump_from_pos(int pos, vector<int>& nums) {
+        // same as backtracking but checking for visited paths
+        if (mem[pos] != 0) return (mem[pos] == 1);
+        
+        int furthest = min(pos + nums[pos], (int) nums.size() - 1);
+        
+        for (int next_pos = pos+1; next_pos <= furthest; ++next_pos) {
+            // if path is good
+            if (can_jump_from_pos(next_pos, nums)) {
+                mem[pos] = 1;
+                return true;
+            }
+        }
+        // position is bad
+        mem[pos] = -1;
+        return false;
+    }
+    bool canJump(vector<int>& nums) {
+        // First call at 0th index
+        int n = nums.size();
+        // fill vector with 0
+        for (int i = 0; i < n; ++i) {
+            mem.push_back(0);
+        }
+        // set the last index to GOOD (1)
+        mem[n-1] = 1;
+        return can_jump_from_pos(0, nums);
+    }
+};
+*/
+
+// Bottom-Up DP, Time: O(n^2) for i in n for nums[i] in i, Space: O(n) memorization
+// only ever jump right by starting on right (no backtracking)
+/*
+class Solution {
+public:
+    // 0 is unknown, -1 is bad, 1 is good
+    bool canJump(vector<int>& nums) {
+        vector<int> mem;
+        int n = nums.size();
+        // fill vector with 0
+        for (int i = 0; i < n; ++i) {
+            mem.push_back(0);
+        }
+        // set last index to GOOD (1)
+        mem[n-1] = 1;
+        
+        // start from right
+        for (int i = n-2; i >= 0; --i) {
+            int furthest = min(i + nums[i], n-1);
+            // goes right from i+1, marks mem[i] to GOOD if any mem[j] are GOOD and breaks;
+            for (int j = i+1; j <= furthest; ++j) {
+                if (mem[j] == 1) {
+                    mem[i] = 1;
+                    break;
+                }
+            }
+        }
+        // if first is good
+        return mem[0] == 1;
+    }
+};
+*/
+
+// Greedy, Time: O(n) single pass, Space: O(1)
+// only need one way to get to the end, from right
+class Solution {
+public:
+    // 0 is unknown, -1 is bad, 1 is good
+    bool canJump(vector<int>& nums) {
+        int last = nums.size()-1;
+        for (int i = last; i >= 0; --i) {
+            // i + nums[i] is the jump
+            // set last to i because we only need to get to leftmost GOOD
+            if (i + nums[i] >= last) last = i;
+        }
+        return last == 0;
+    }
+};
+
+
+// Single pass
