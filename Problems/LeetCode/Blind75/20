@@ -1,0 +1,25 @@
+// 20. Valid Parentheses
+class Solution {
+public:
+    // could also use unordered_map<char, char> for each open/close brace
+    bool isValid(string s) {
+        stack<char> todo;
+        for(char c : s){
+            // if an opening brace
+            if (c == '('|| c == '{' || c == '['){
+                todo.push(c);
+            } else {
+                // if no char
+                if(todo.empty()) return false;
+                // if top is closing brace return false
+                if(c == ')' && todo.top() != '(') return false; 
+                if(c == '}' && todo.top() != '{') return false;
+                if(c == ']' && todo.top() != '[') return false;
+                // remove the bottom of the stack
+                todo.pop();
+            }
+        }
+        // if nothing on the stack then all braces have been closed or there were none
+        return todo.empty();
+    }
+};
