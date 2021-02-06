@@ -1,0 +1,52 @@
+// 746. Min Cost Climbing Stairs
+// 1 or 2 steps
+// Recurrence relation: 
+// mincost(i) = cost[i] + min(mincost(i-1], mincost(i-2)))
+
+// memo DP
+/*
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size();
+        if (n == 2) return min(cost[0], cost[1]);
+        if (n == 1) return cost[0];
+        if (n == 0) return 0;
+        
+        vector<int> mincost(n, 0);
+        mincost[0] = cost[0];
+        mincost[1] = cost[1];
+        for (int i = 2; i < n; ++i) {
+            // if 1 step, then add mincost[i-1]
+            // if 2 steps, then add mincost[i-2]
+            mincost[i] = cost[i] + min(mincost[i-1], mincost[i-2]);
+        }
+        // return 
+        return min(mincost[n-1], mincost[n-2]);
+    }
+};
+*/
+
+// optimize for space
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size();
+        if (n == 2) return min(cost[0], cost[1]);
+        if (n == 1) return cost[0];
+        if (n == 0) return 0;
+        
+        int a = cost[0];
+        int b = cost[1];
+        int c;
+        for (int i = 2; i < n; ++i) {
+            // if 1 step, then add mincost[i-1]
+            // if 2 steps, then add mincost[i-2]
+            c = cost[i] + min(b, a);
+            a = b;
+            b = c;
+        }
+        // return 
+        return min(a, b);
+    }
+};

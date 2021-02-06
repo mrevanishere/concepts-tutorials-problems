@@ -1,0 +1,57 @@
+// 70. Climbing Stairs
+
+// Recurrence relation: S(n) = S(n-1) + S(n-2), S(1) = 1, S(2) = 2
+
+// memoDP:
+// sum of previous two
+// modified fib
+/*
+class Solution {
+public:
+    int climbStairs(int n) {
+        int f[n+2];
+        
+        int i;
+        f[1] = 1;
+        f[2] = 2;
+        for (i = 3; i <= n; ++i) {
+            f[i] = f[i-1] + f[i-2];
+        }
+        return f[n];
+    }
+};
+*/
+
+// vector memo instead
+/*
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> paths(n+2, 0);
+        paths[1] = 1;
+        paths[2] = 2;
+        for (int i = 3; i <= n; ++i) {
+            paths[i] = paths[i-1] + paths[i-2];
+        }
+        return paths[n];
+    }
+};
+*/
+
+
+// Optimize for space
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n <= 2) return n;
+        int a = 1;
+        int b = 2;
+        int c;
+        for (int i = 3; i <= n; ++i) {
+            c = b + a;
+            a = b;
+            b = c;
+        }
+        return c;
+    }
+};
