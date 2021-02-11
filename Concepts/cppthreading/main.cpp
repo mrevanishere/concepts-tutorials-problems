@@ -6,7 +6,9 @@ void hello() {
 }
 
 int main() {
-    std::cout << "Hello World";
+    std::cout << "Hello World\n";
     std::thread f(hello);
+    std::thread h(hello);
     f.join();
+    h.join();
 }
