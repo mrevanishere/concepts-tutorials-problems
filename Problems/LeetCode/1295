@@ -1,0 +1,23 @@
+// 1295. Find Numbers with Even Number of Digits
+
+// Divide each number until zero and add to count if digit_count is even.
+class Solution {
+public:
+    int findNumbers(vector<int>& nums) {
+        int n = nums.size();
+        int evens = 0;
+        for (int i = 0; i < n; ++i) {
+            int x = nums[i]/10;
+            int digit_count = 1;
+            while (x > 0) {
+                x /= 10;
+                // cout << x << "\n";
+                digit_count++;
+            }
+            if (digit_count % 2 == 0) {
+                evens += 1;
+            }
+        }
+        return evens;
+    }
+};
