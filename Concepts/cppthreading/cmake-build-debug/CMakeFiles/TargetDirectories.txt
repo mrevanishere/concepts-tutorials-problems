@@ -1,3 +1,0 @@
-C:/gith/mrevanishere/concepts-tutorials-problems/Concepts/cppthreading/cmake-build-debug/CMakeFiles/cppthreading.dir
-C:/gith/mrevanishere/concepts-tutorials-problems/Concepts/cppthreading/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/gith/mrevanishere/concepts-tutorials-problems/Concepts/cppthreading/cmake-build-debug/CMakeFiles/rebuild_cache.dir
