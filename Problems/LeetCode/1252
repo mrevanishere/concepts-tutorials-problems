@@ -1,0 +1,43 @@
+// 1252. Cells with Odd Values in a Matrix
+
+// Naive: O(m*n+size*(m+n)) time, O(mn) space
+// followup: Solve in O(n+m+size) time and O(n+m) extra space
+class Solution {
+public:
+    int oddCells(int m, int n, vector<vector<int>>& indices) {
+        ios_base::sync_with_stdio(false);
+
+        if (indices.size() == 0) {
+            return 0; 
+        }
+        
+        int size = indices.size();
+        vector<vector<int>> mat(m, vector<int>(n, 0));
+        
+        
+        for (int i = 0; i < size; ++i) {
+            int r = indices[i][0];
+            int c = indices[i][1];
+            // cout << r << c << endl;;
+            for (int j = 0; j < n; ++j) {
+                // cout << j << endl;
+                mat[r][j] += 1;
+            }
+            for (int k = 0; k < m; ++k) {
+                cout << k << endl;
+                mat[k][c] += 1;
+            }
+        }
+        
+        int count = 0; 
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                // cout << i << j << endl;
+                if (mat[i][j] % 2 == 1) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+};
