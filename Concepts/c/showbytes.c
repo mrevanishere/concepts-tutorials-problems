@@ -10,8 +10,21 @@ void show_bytes(byte_pointer start, size_t len) {
     printf("\n");
 }
 
+void reverse_show_bytes(byte_pointer start, size_t len) {
+    for (int i = len; i > 0; --i) {
+        printf("%.2x", start[i]);
+    }
+    printf("\n");
+}
+
 void show_int(int x) {
+    printf("Int Repr: ");
     show_bytes((byte_pointer) &x, sizeof(int));
+}
+
+void reverse_show_int(int x) {
+    printf("Reverse Int: ");
+    reverse_show_bytes((byte_pointer) &x, sizeof(int));
 }
 
 void show_unsigned_int(unsigned int x) {
@@ -19,6 +32,7 @@ void show_unsigned_int(unsigned int x) {
 }
 
 void show_pointer(void *x) {
+    printf("Pointer: ");
     show_bytes((byte_pointer) &x, sizeof(void *));
 }
 
@@ -26,7 +40,9 @@ void test_show_bytes(int val) {
     int ival = val;
     int *pval = &ival;
     show_int(ival);
+    reverse_show_int(ival);
     show_pointer(pval);
+    printf("\n");
 }
 
 void inplace_swap(int *x, int *y) {
@@ -89,12 +105,17 @@ int main() {
     // Two Hex is 1 byte
 
     // Charrays repr
-    /*
-    const char *m = "mnopqr";
-    show_bytes((byte_pointer) m, strlen(m)+1); // if add 1 to length the end 00 is printed
-    test_show_bytes(2607352);
-    printf("\n");
-    */
+    //const char *m = "mnopqr";
+    //show_bytes((byte_pointer) m, strlen(m)+1); // if add 1 to length the end 00 is printed
+    // test_show_bytes(2607352);
+
+
+    // Big and Little Endian testing
+    unsigned int mybyte1 = 0x01234567;
+    unsigned int mybyte2 = 0x00245610;
+    test_show_bytes(mybyte1);
+    test_show_bytes(mybyte2);
+    
     
     // Inplace Swap
     /*
@@ -107,6 +128,7 @@ int main() {
     printf("\n");
     */
 
+    /*
     // Two's to Unsigned:
     two_to_unisgned(-1);
 
@@ -115,14 +137,14 @@ int main() {
     // Two's divison by two (Arithmetic right shit)
     floor_div_t(22, 3); // 2
     floor_div_t(-22, 3); // -3 (because rounds down not up)
-
+    */
 
     // unrolled sum, don't need unrolling in all modern cases due to compiler being good
-    int array_one[10];
-    for (int i = 0; i < 10; ++i) {
-        array_one[i] = i;
-    }
-    unroll_sum(array_one, 10);
+    // int array_one[10];
+    // for (int i = 0; i < 10; ++i) {
+    //     array_one[i] = i;
+    // }
+    // unroll_sum(array_one, 10);
 
     return 0;
 }
