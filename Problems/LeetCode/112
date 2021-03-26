@@ -1,0 +1,42 @@
+// 112. Path Sum
+
+// changed my solution to only check the condition if it is a child node, also passed targetSum in by const int* to save memory
+class Solution {
+public:
+    int dfs(TreeNode* node, int csum, const int* targetSum) {
+        if (node == nullptr) return false;
+        
+        csum += node->val;
+        // cout << node->val << endl;
+        // cout << targetSum << endl;
+        // cout << *targetSum << endl;
+        // if it is a child then check, else go deeper
+        if (!node->left && !node->right) return (csum == *targetSum);
+        return dfs(node->left, csum, targetSum) || dfs(node->right, csum, targetSum);
+    }
+    
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (root == nullptr) return false;
+        return dfs(root, 0, &targetSum);
+    }
+};
+
+
+// doesn't work with [1,2], 1 but why? (because 1 is NOT a leaf node.) 
+// check all paths, so dfs
+/*
+class Solution {
+public:
+    int dfs(TreeNode* node, int csum, int targetSum) {
+        if (node == nullptr) return (csum == targetSum);
+        csum += node->val;
+        cout << node->val << endl;
+        return dfs(node->left, csum, targetSum) || dfs(node->right, csum, targetSum);
+    }
+    
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (root == nullptr) return false;
+        return dfs(root, 0, targetSum);
+    }
+};
+*/
