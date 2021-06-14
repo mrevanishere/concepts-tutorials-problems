@@ -1,0 +1,30 @@
+// 33. Search in Rotated Sorted Array
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        // brute force  -> O(n) 
+        // binary search modified at pivot unknown k -> O(log(n))
+        
+        int n = nums.size();
+        if (n < 1) return -1;
+        int low = 0;
+        int high = n-1;
+        // base iterative binary search + 2 cases
+        while (low <= high) {
+            int mid = low + ((high - low) / 2);
+            int mid_val = nums[mid];
+            if (mid_val == target) return mid;
+            // two extra cases due to unknown pivot
+            else if (mid_val >= nums[low]) { // pivot > mid
+                if (target >= nums[low] && target < mid_val) high = mid - 1;
+                else low = mid + 1;
+            }
+            else if (mid_val < nums[low]) { // pivot <= mid
+                if (target <= nums[high] && target > mid_val) low = mid + 1;
+                else high = mid - 1;
+            }
+        }
+        return -1;
+        
+    }
+};
