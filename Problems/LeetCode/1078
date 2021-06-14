@@ -1,0 +1,31 @@
+// 1078. Occurrences After Bigram
+// C++ split(), loop
+class Solution {
+public:
+    vector<string> findOcurrences(string text, string first, string second) {
+        vector<string> words = split(text, ' ');
+        int n = words.size();
+        vector<string> ans;
+        if (n < 3) return ans;
+        
+        string fir = words[0];
+        for (int i = 1; i < n - 1; ++i) {
+            if (fir == first && words[i] == second) {
+                ans.push_back(words[i+1]);
+            }
+            fir = words[i];
+        }
+        return ans;
+    }
+    
+    vector<string> split(const string& s, char delim) {
+        // python/java .split()
+        vector<string> parts;
+        string part;
+        istringstream iss(s);
+        while (getline(iss, part, delim)) {
+            parts.push_back(part);
+        }
+        return parts;
+    }
+};
