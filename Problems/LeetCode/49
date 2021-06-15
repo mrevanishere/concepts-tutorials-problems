@@ -1,0 +1,34 @@
+// 49. Group Anagrams
+// Optimized: frequency string, map<"a#b#...", vector<string>>
+// Naive: map<map<char, int>, vector<string>> groups; 
+    // O(NM) speed + O(n + k) extra space
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        // Use map
+        // Key: freq of char, Value: vector of anagrams for that set of characters
+        // Return: loop over keys and return list of values
+        int n = strs.size();
+        vector<vector<string>> ans;
+        if (n < 1) return ans;
+        
+        // first pass: create map
+        map<map<char, int>, vector<string>> groups; 
+        for (int i = 0; i < n; ++i) {
+            map<char, int> group;
+            for (int j = 0; j < strs[i].size(); ++j) {
+                group[strs[i][j]] += 1;
+            }
+            // dict[set(strs[i])].push_back(strs[i]);
+            // groups[set<char>{begin(strs[i]), end(strs[i])}].push_back(strs[i]);
+            groups[group].push_back(strs[i]);
+        }
+        
+        // second pass: push to ans
+        for (auto k: groups) {
+            // ans.push_back(groups[k]);
+            ans.push_back(k.second);
+        }
+        return ans;
+    }
+};
