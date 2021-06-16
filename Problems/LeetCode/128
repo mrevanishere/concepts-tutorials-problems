@@ -1,0 +1,31 @@
+// 128. Longest Consecutive Sequence
+
+// Methods
+        // * sort
+        // * union find
+        // * reduce to dfs/bfs O(n)
+        // * set O(n)
+
+// iterator over set
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+
+        set<int> seq(begin(nums), end(nums));
+        int n = seq.size();
+        if (n < 1) return 0;
+        if (n < 2) return 1;
+        int count = 1;
+        int best = count;
+        for (set<int>::iterator it=next(seq.begin()); it!=seq.end(); ++it) {
+            // cout << *it << " " << *prev(it) << " " << *it - *prev(it) << " \n";
+            if (*it - *prev(it) == 1) {
+                count++;
+            } else{
+                count = 1;
+            }
+            best = max(count, best);
+        }
+        return best;
+    }
+};
