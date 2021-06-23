@@ -1,0 +1,57 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+// 101. Symmetric Tree
+
+// BFS Solution
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        // if (!root) return true;
+        // if (!root->left || !root->right) return false;
+        
+        queue<TreeNode*> q1;
+        queue<TreeNode*> q2;
+        q1.push(root);
+        q2.push(root);
+        while (!q1.empty() || !q2.empty()) {
+            TreeNode* t1 = q1.front();
+            q1.pop();
+            TreeNode* t2 = q2.front();
+            q2.pop();
+            
+            if (t1 == nullptr && t2 == nullptr) continue; // conclude not both null
+            if (t1 == nullptr || t2 == nullptr) return false; // check if one is null
+            if (t1->val != t2->val) return false;
+            q1.push(t1->left);
+            q2.push(t2->right);
+            q1.push(t1->right);
+            q2.push(t2->left);
+        }
+        return true;
+    }
+};
+
+// DFS Solution
+/*
+class Solution {
+public:
+    bool dfs(TreeNode* t1, TreeNode* t2) {
+        if (!t1 && !t2) return true; // both null so true
+        if (!t1 || !t2) return false; // one is null so not symmetric
+        return (t1->val == t2->val) && dfs(t1->right, t2->left) && dfs(t1->left, t2->right);
+    }
+    bool isSymmetric(TreeNode* root) {
+        // how to do dfs:
+        return dfs(root, root);
+    }
+};
+*/
