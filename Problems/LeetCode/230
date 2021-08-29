@@ -1,0 +1,40 @@
+// 230. Kth Smallest Element in a BST
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        // Naive:
+        // Traverse entire tree
+        // Keep heap/list of each value
+        queue<TreeNode*> q;
+        // O(n) extra space
+        vector<int> vals; // switch out with heap/pq? get kth element
+        // priority_queue<int> vals;
+        q.push(root);
+        vals.push_back(root->val);
+        // BFS is O(n), O(w)
+        while (!q.empty()) {
+            TreeNode* s = q.front();
+            q.pop();
+            
+            if (s->left) {
+                q.push(s->left);
+                vals.push_back(s->left->val);
+            }
+            if (s->right) {
+                q.push(s->right);
+                vals.push_back(s->right->val);
+            }      
+        }
+        
+        // O(n logn)
+        sort(vals.begin(), vals.end());
+        
+        // O(k-1) access
+        // Total: O(k+n+nlogn), O(n+w)
+        return vals[k-1];
+        
+        // Extra requirement:
+        // how to optimize kth smallest element if BST is insert/delete often
+            // keep map -> heap
+    }
+};

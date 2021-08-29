@@ -1,0 +1,56 @@
+// 202. Happy Number
+// Optimized version (two pointer)
+class Solution {
+public:
+    int get_next(int n) {
+        int sum = 0;
+        while (n > 0) {
+            int r = n % 10;
+            n = n / 10;
+            sum += r*r;
+        }
+        return sum;
+    }
+    bool isHappy(int n) {
+        int slow = n;
+        int fast = get_next(n);
+        while (fast != 1 && slow != fast) {
+            slow = get_next(slow);
+            fast = get_next(get_next(fast));
+        }
+        return fast == 1;
+    }
+};
+// Naive version, using hashmap to detect cycle , optimize for memory use hashset instead?, there should be some math pattern for speed optimization 
+/*
+class Solution {
+public:
+    bool isHappy(int n) {
+        // Assume input is positive
+        if (n < 1) return false;
+        if (n == 1) return true;
+        
+        int r = 0;
+        // int x = 0;
+        unordered_map<int, bool> visited;
+        while (n != 1) {
+            int sum = 0;
+            while (n > 0) {
+                r = n % 10;
+                n = n / 10;
+                sum += r*r;
+            }
+            
+            if (visited[sum]) {
+                return false;
+            } else {
+                visited[sum] = true;
+            }
+            n = sum;
+        }
+        return true;
+    }
+};
+*/
+// 19, 81+1 -> 82, 
+// 123, 3->9 2->4 1->1 sum=14 -> sum=17 -> sum=50 -> sum=25 -> 29 -> sum=85 -> sum=25+81=106 -> 17, return false.
