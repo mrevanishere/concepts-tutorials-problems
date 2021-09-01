@@ -1,0 +1,67 @@
+// 1041. Robot Bounded In Circle
+/// More Clean solution (1 cycle, cause if robot doesn't face north then it can cycle (always has same amount of turns and forward movement)):
+class Solution {
+public:
+    bool isRobotBounded(string instructions) {
+        int n = instructions.size();
+        
+        if (n < 1) return 0;
+        
+        int x = 0;
+        int y = 0;
+        int d = 0; // N: 0, W: 1, S: 2, E: 3
+        vector<vector<int>> dir = {{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
+        for (int c = 0; c < 4; ++c) {
+            for (int i = 0; i < n; ++i) {
+                if (instructions[i] == 'G') {
+                    x += dir[d][0];
+                    y += dir[d][1];
+                }
+                if (instructions[i] == 'L') {
+                    d = (d + 1) % 4;
+                }
+                if (instructions[i] == 'R') {
+                    d = (d + 3) % 4;
+                }
+            }
+        }
+        // Returns to zero or faces not forward (garunteed to turn after each cycle of instruction)
+        return (x == 0 && y == 0) || d != 0;
+    }
+};
+
+// Trick/Proof: 4 (loops of the instructions )cycles is enough to detect if it cycles.
+// Naive/Broken (until 4 loop was added)
+/*
+class Solution {
+public:
+    bool isRobotBounded(string instructions) {
+        int n = instructions.size();
+        
+        if (n < 1) return 0;
+        
+        int x = 0;
+        int y = 0;
+        int d = 0; // N: 0, W: 1, S: 2, E: 3
+        for (int c = 0; c < 4; ++c) {
+            for (int i = 0; i < n; ++i) {
+                if (instructions[i] == 'G') {
+                    if (d == 0) y++;
+                    if (d == 1) x--;
+                    if (d == 2) y--;
+                    if (d == 3) x++;
+                }
+                if (instructions[i] == 'L') {
+                    d += 1;
+                    if (d > 3) d = 0;
+                }
+                if (instructions[i] == 'R') {
+                    d -= 1;
+                    if (d < 0) d = 3;
+                }
+            }
+        }
+        return (x == 0 && y == 0);
+    }
+};
+*/

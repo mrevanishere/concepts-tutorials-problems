@@ -1,0 +1,82 @@
+// 1423. Maximum Points You Can Obtain from Cards
+// Sliding Window outside
+class Solution {
+public:
+
+    
+    int maxScore(vector<int>& cardPoints, int k) {
+        int sum = accumulate(cardPoints.end() - k, cardPoints.end(), 0);
+        int n = cardPoints.size();
+        // int sum = 0;
+        // for (int i = 0; i < k; ++i) sum += cardPoints[n-i-1];
+        int best = sum;
+        // dp space lol
+        for (int i = 0, j = k; i <= k, j > 0; ++i, --j) {
+            sum += cardPoints[i] - cardPoints[n - j];
+            best = max(sum, best);
+        }
+        best = max(accumulate(cardPoints.begin(), cardPoints.begin()+k, 0), best);
+        return best;
+    }
+};
+
+// This solution: forgot depth
+/*
+class Solution {
+public:
+    // [11,49,100,20,86,29,72]
+    // 11 -> 72 -> 49 -> 100
+    int maxScore(vector<int>& cardPoints, int k) {
+        // TLE: bfs, max each level
+        // two pointers
+        
+        // Case: if equal, go next or return current sum if two pointers meet
+        // Case: k is over half
+        int j = cardPoints.size() - 1;
+        int i = 0;
+        int sum = 0;
+        int count = 0;
+        while (i < j && count < k) {
+            count++;
+            cout << "Comparing: " << cardPoints[i] << " " << cardPoints[j] << " ";
+            if (cardPoints[i] > cardPoints[j]) {
+                cout << " choose left" << " ";
+                sum += cardPoints[i];
+                i++;
+            } else if (cardPoints[j] > cardPoints[i]) {
+                cout << " choose right" << " ";
+                sum += cardPoints[j];
+                j--;
+            } else {
+                cout << " equal" << " ";
+                int tempi = i;
+                int tempj = j;
+                int tempsumi = cardPoints[tempi];
+                int tempsumj = cardPoints[tempj];
+                int tempk = count;
+                 if (tempk == k) return tempsumi + sum;
+                // int maxcard = 0; // max(cardPoints[i], cardPoints[j]);
+                while (cardPoints[tempi] == cardPoints[tempj]) {
+                    tempi++;
+                    tempj--;
+                    tempsumi += cardPoints[tempi];
+                    tempsumj += cardPoints[tempj];
+                    tempk++;
+                    if (tempk >= k) return tempsumi + sum;
+                    // maxcard = max(cardPoints[tempi], cardPoints[tempj]);
+                    
+                }
+                sum += cardPoints[i];
+                if (cardPoints[tempi] > cardPoints[tempj]) {
+                    i = tempi;
+                } else {
+                    j = tempj;
+                }
+                
+            }
+            cout << sum << "\n";
+        }
+        return sum;
+    }
+};
+*/

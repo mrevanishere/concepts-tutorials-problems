@@ -1,0 +1,22 @@
+// 1822. Sign of the Product of an Array
+class Solution {
+public:
+    int arraySign(vector<int>& nums) {
+        int i = 0;
+        
+        // assume input >= 1
+        // O(n), O(1)
+        int sign = 1;
+        int n = nums.size();
+        // If num is 0 return 0, if num is negative multiply sign by -1
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] == 0) return 0;
+            if (nums[i] < 0) {
+                sign *= -1;
+            }
+            // slow: sign *= nums[i] / abs(nums[i]); // -2 / 2 = -1 ->, 2 / 2 -> 1,
+        }
+        return sign;
+        
+    }
+};

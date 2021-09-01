@@ -1,0 +1,51 @@
+// 953. Verifying an Alien Dictionary
+
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        // map{letter, index}
+        
+        int n = words.size();
+        // create alphabet, need map for fast access to index
+        int k = order.size();
+        map<char, int> alien_dict;
+        // O(k), O(2k)
+        for (int i = 0; i < k; ++i) {
+            alien_dict[order[i]] = i;
+        }
+        
+        
+        
+        // check order
+        // O(n * w)
+        for (int i = 1; i < n; ++i) {
+            int curr_size = words[i].size();
+            int prev_size = words[i-1].size();
+            int count_same = 0;
+            // Comparator
+            for (int j = 0, k = 0; j < curr_size && k < prev_size; ++j, ++k) {
+                // cout << words[i][j] << alien_dict[words[i][j]] << " ";
+                // cout << words[i-1][k] << alien_dict[words[i-1][k]] << "\n";
+                int a = alien_dict[words[i][j]];
+                int b = alien_dict[words[i-1][k]];
+                if (a == b) {
+                    count_same += 1;
+                    // cout << count_same << " " << curr_size << " " << prev_size << "\n";
+                    // Edge case
+                    if (count_same == curr_size && curr_size < prev_size) return false;
+                    continue;
+                }
+                else if (a < b) {
+                    return false;
+                } 
+                else {
+                    break;
+                }
+            }
+            // cout << curr_size << " " << prev_size << "\n";
+            // if (curr_size < prev_size) return false;
+        }
+        
+        return true;
+    }
+};
