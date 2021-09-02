@@ -1,0 +1,50 @@
+// 200. Number of Islands
+
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size();
+        // dfloop
+            // if 1 reached && not visited
+                // check for adjacent boxes (hardcoded) and add to queue
+            // visited array for 1's
+            // amt += 1;
+        
+        int amt = 0;
+        // vector of pairs of coords for visited?
+        // or can just blow up the island (set to zero, save space)
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < grid[i].size(); ++j) {
+                if (grid[i][j] == '1') {
+                    amt += 1;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return amt;
+    }
+    void dfs(vector<vector<char>>& grid, int i, int j)  {
+        if (grid[i][j] == '0') return;
+
+        grid[i][j] = '0';
+        
+        // up
+        if (i > 0) {
+            dfs(grid, i-1, j);
+        }
+        // down
+        if (i < grid.size()-1) {
+            dfs(grid, i+1, j);
+        }
+        // left
+        if (j > 0) {
+            dfs(grid, i, j-1);
+        }
+        // right
+        if (j < grid[0].size()-1) {
+            dfs(grid, i, j+1);
+        }
+        
+        
+    }
+};
