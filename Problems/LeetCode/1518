@@ -1,0 +1,21 @@
+// 1518. Water Bottles
+// math
+class Solution {
+public:
+    int numWaterBottles(int numBottles, int numExchange) {
+        int total_bottles = numBottles;
+        int rem = 0;
+        while (numBottles > 0) {
+            int curr = numBottles + rem;
+            numBottles = curr / numExchange;
+            rem = curr % numExchange;
+            total_bottles += numBottles;
+        }
+        return total_bottles;
+    }
+    // 15 / 4 = 
+    // 15 + 3 + 0
+    // ^ is wrong
+    // 15 / 4 -> 3+1/4 -> 1/4 = 0
+    // 15 + 3 + 1
+};
