@@ -1,0 +1,39 @@
+// 221. Maximal Square
+// DP problem
+
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        // Brute force: 
+            // traverse all min(m, n)^2 submatrix
+                // return if find any valid
+            // then (min(m,n)-1)^2
+            // until min == 0
+            // return 0
+        // Is O(n^5), no extra space
+        int m = matrix.size();
+        if (!m) return 0;
+        int n = matrix[0].size();
+        int lesser = min(m,n);
+        for(int s = lesser; s > 0; --s)  //all sizes
+            for(int i = 0; i <= m-s; ++i)  //each starting point
+                for(int j = 0; j <= n-s; ++j) {
+                    bool has_zero = false;
+                    for(int p = i; p < i+s; ++p) {
+                        for(int q = j; q < j+s; ++q) {
+                            if(matrix[p][q]=='0') {
+                                has_zero = true;
+                                break;
+                            }
+                        }
+                        if (has_zero) break;
+                    }
+                    if (!has_zero) return s*s;
+                }
+        return 0;
+    }
+    // m = 4
+    // n = 5
+    // lesser = 4
+    
+};
