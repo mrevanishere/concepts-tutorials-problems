@@ -1,0 +1,25 @@
+// 125. Valid Palindrome
+// O(n + m)
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int n = s.size();
+        string alnum_s = "";
+        // convert string to alnum lower
+        for (int i = 0; i < n; ++i) {
+            if (isalnum(s[i])) {
+                alnum_s += tolower(s[i]);
+            }
+        }
+        int m = alnum_s.size();
+        // cout << alnum_s << "\n";
+        for (int i = 0; i < m; ++i) {
+            // cout << alnum_s[i] << " " << alnum_s[m-i-1] << "\n";
+            if (alnum_s[i] != alnum_s[m-i-1]) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+};

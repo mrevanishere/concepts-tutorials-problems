@@ -1,0 +1,39 @@
+811. Subdomain Visit Count
+
+// Just do this in python instead (.split() in interviews)
+class Solution {
+public:
+    vector<string> subdomainVisits(vector<string>& cpdomains) {
+        // ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
+        // google.mail.com: 900
+        // mail.com: 900 + 1
+        // com: 900 + 50
+        // yahoo.com: 50
+        // intel.mail.com: 1
+        // wiki.org: 5
+        // org: 5
+        
+        int n = cpdomains.size();
+        vector<string> ans;
+        map<string, int> counts;
+        if (n < 1) return ans;
+        if (n == 1) {
+            ans = cpdomains;
+            return ans;
+        }
+        
+        // for str in cpdomains:
+            // num, domain = separate_num_domain(str)
+            // vector<string> subdomains = get_subdomains(domain)
+            // for sd in subdomains:
+                // if sd in counts:
+                    // counts[sd] += num;
+                // else:
+                    // counts[sd] = num;
+        
+        // Want to push map -> vector
+        // for k,v in m:
+            // ans.pb(to_string(v) + k)
+        // return ans
+    }
+};
