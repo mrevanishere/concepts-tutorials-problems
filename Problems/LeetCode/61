@@ -1,0 +1,31 @@
+// 61. Rotate List
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        // check if needs to be rotated at all
+        if (!head || !head->next) return head;
+        // Initialize
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+        ListNode* first = head;
+        // TLE for very long, so k rotations can be reduced to k/n = r rotations
+        int n = 0;
+        while (curr != nullptr) {
+            n++;
+            curr = curr->next;
+        }
+        curr = head;
+        int r = k % n;
+        // O(nr)
+        for (int i = 0; i < r; ++i) {
+            while (curr->next != nullptr) {
+                prev = curr;
+                curr = curr->next;  
+            }
+            curr->next = first;
+            prev->next = nullptr;
+            first = curr;
+        }
+        return first;
+    }
+};

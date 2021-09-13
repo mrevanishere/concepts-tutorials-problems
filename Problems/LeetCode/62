@@ -1,0 +1,20 @@
+// 62. Unique Paths
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        // if m > 0 and n > 0
+        map<pair<int, int>, int> bt;
+        return dfs(m, n, bt);
+    }
+    int dfs(int m, int n, map<pair<int, int>, int>& bt) {
+        if (m <= 1) return 1;
+        if (n <= 1) return 1;
+        pair<int, int> curr = make_pair(m, n);
+        if (bt.count(curr)) {
+            return bt[curr];
+        }
+        int sum = dfs(m-1, n, bt) + dfs(m, n-1, bt);
+        bt[make_pair(m, n)] = sum;
+        return sum;
+    }
+};

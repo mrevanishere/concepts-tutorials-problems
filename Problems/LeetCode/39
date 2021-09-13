@@ -1,0 +1,62 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int> &candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        vector<std::vector<int> > ans;
+        vector<int> comb;
+        backtrack(candidates, target, ans, comb, 0);
+        return ans;
+    }
+private:
+    void backtrack(std::vector<int> &candidates, int target, vector<vector<int>>& ans, vector<int> &comb, int begin) {
+        if (!target) {
+            ans.push_back(comb);
+            return;
+        }
+        for (int i = begin; i != candidates.size() && target >= candidates[i]; ++i) {
+            comb.push_back(candidates[i]);
+            backtrack(candidates, target - candidates[i], ans, comb, i);
+            comb.pop_back();
+        }
+    }
+};
+//bad
+/*
+class Solution {
+public:
+    void dfs(vector<int>& candidates, vector<int> candidate, int target, vector<vector<int>>& ans) {
+        int sum = accumulate(candidate.begin(), candidate.end(), 0);
+        if (sum > target) return;
+        if (sum == target) ans.push_back(candidate);
+        int n = candidates.size();
+        for (int i = 0; i < n; ++i) {
+            vector<int> temp{candidate.begin(), candidate.end()};
+            temp.push_back(candidates[i]);
+            dfs(candidates, temp, target, ans);
+        }
+        return;
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        // complete with a map? no
+        // combinations with any length, need DP?
+        // all of combination sum can be solved with: backtracking
+        vector<vector<int>> ans;
+        if (candidates.size() < 1) return ans;
+        dfs(candidates, vector<int>{}, target, ans);
+        int n = ans.size();
+        // bad
+        set<set<int>> newans;
+        for (int i = 0; i < n; ++i) {
+            set<int> temp{ans[i].begin(), ans[i].end()};
+            newans.insert(temp);
+        }
+        vector<vector<int>> better_ans;
+        int m = newans.size();
+        for (auto s : newans) {
+            vector<int> temp{s.begin(), s.end()};
+            better_ans.push_back(temp);
+        }
+        return better_ans;
+    }
+};
+*/

@@ -1,0 +1,21 @@
+// 1. Two Sum
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        vector<int> ans;
+        
+        if (n < 2) return ans;
+        
+        unordered_map<int, int> m;
+        for (int i = 0; i < n; ++i) {
+            if (m.count(target-nums[i])) {
+                ans = {i, m[target-nums[i]]};
+                return ans;
+            }
+            m[nums[i]] = i;
+            // cout << nums[i] << ": " << i << endl;
+        }
+        return ans;
+    }
+};
