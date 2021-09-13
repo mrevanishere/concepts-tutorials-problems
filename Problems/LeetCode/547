@@ -1,0 +1,34 @@
+//547. Number of Provinces
+// dfs and bfs on an adj matrix
+class Solution {
+public:
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        // visited matrix to keep track of all cities we've been to
+        // dfs or bfs to search through each of the connections
+        // the for each city we reach we would add it 
+        // to the current province and the visited matrix
+        // -> next, dfs, some are visited, if visited we skip
+
+        // number of provinces
+            // if the first is not visited, we count++
+        // queue<int> queue;
+        set<int> visited; // size n
+        // map<int> visited;
+        int count = 0;
+        for (int i = 0; i < isConnected.size(); ++i) { 
+            if (visited.count(i) == 0) {                
+                dfs(visited, isConnected, i);
+                count++;
+            }
+        }
+        return count;
+    }
+    void dfs(set<int>& visited, vector<vector<int>>& adj, int i) {
+        for (int j = 0; j < adj.size(); ++j) {
+            if (adj[i][j] == 1 && visited.count(j) == 0) {
+                visited.insert(j);
+                dfs(visited, adj, j);
+            }
+        }
+    }
+};

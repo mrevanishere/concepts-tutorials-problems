@@ -1,0 +1,43 @@
+// 412. Fizz Buzz
+
+// SCALABLE
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> fb;
+        for (int i = 1; i <= n; ++i) {
+            string s = "";
+            if (i % 3 == 0) s += "Fizz";
+            if (i % 5 == 0) s += "Buzz";
+            if (s == "") s = to_string(i);
+            fb.push_back(s);
+            // cout << fb[i] << endl;
+        }
+        return fb;
+    }
+};
+
+/*
+// DRY solution
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> fb(n);
+        for (int i = 0; i < n; ++i) {
+            int k = i+1; // DRY
+            bool three = k % 3 == 0; // DRY
+            bool five = k % 5 == 0;
+            if (three && five) 
+                fb[i] = "FizzBuzz";
+            else if (three) 
+                fb[i] = "Fizz";
+            else if (five) 
+                fb[i] = "Buzz";
+            else 
+                fb[i] = to_string(k);
+            // cout << fb[i] << endl;
+        }
+        return fb;
+    }
+};
+*/

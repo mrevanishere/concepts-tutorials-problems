@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        // First way: iterate though both and store in a map, return the list of keys (value > 1)
+        // Another way (two pointers): sort both arrays, loop compare through both, and if they're equal, then add to list
+        // Python way: Set(nums1).intersect(Set(nums2))
+        int n = nums1.size();
+        int m = nums2.size();
+        if (!(n && m)) return vector<int>{};
+        map<int, int> uni;
+        for (int i = 0; i < n; ++i) {
+            if (!uni.count(nums1[i])) {
+                uni[nums1[i]] = 1;
+            }
+        }
+        for (int i = 0; i < m; ++i) {
+            if (uni.count(nums2[i])) {
+                uni[nums2[i]] = 2;
+            }
+        }
+        vector<int> inter;
+        for (int i = 0; i < uni.size(); ++i) {
+            if (uni[i] == 2) {
+                inter.push_back(i);
+            }
+        }
+        return inter;
+    }
+};
+
+
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        return (set(nums1)).intersection(set(nums2))
+
+
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        vector<int> inter;
+        int n = nums1.size();
+        int m = nums2.size();
+        int i = 0;
+        int j = 0;
+        while (i < n && j < m) {
+            if (nums1[i] < nums2[j]) {
+                ++i;
+            } else if (nums1[i] > nums2[j]) {
+                ++j;
+            } else { // equals
+                int a = nums1[i];
+                inter.push_back(a);
+                // make sure it goes over all duplicates
+                while (i < n && nums1[i] == a) {
+                    ++i;
+                }
+                while (j < m && nums2[j] == a) {
+                    ++j;
+                }
+            }
+        }
+        return inter;
+    }
+};
